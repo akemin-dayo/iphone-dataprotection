@@ -26,7 +26,7 @@ def AESUnwrap(kek, wrapped):
         for i in reversed(xrange(1,n+1)):
             todec = pack64bit(A ^ (n*j+i))
             todec += pack64bit(R[i])
-            B = AES.new(kek).decrypt(todec)
+            B = AES.new(kek, AES.MODE_CBC, "\x00"*16).decrypt(todec)
             A = unpack64bit(B[:8])
             R[i] = unpack64bit(B[8:])
     
